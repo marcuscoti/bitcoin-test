@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load tz %}
+{% load widget_tweaks %}
+{% load converter %}
+
+{% block head_title %}
+    {{block.super}} | Enviar BitCoins
+{% endblock head_title %}
+
+{% block style %}
+    .card-header{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .card-title{
+        font-weight: bold;
+    }
+    .table-header{
+        font-weight: bold !important;
+        background-color: Green !important;
+    }
+    .tx-hash{
+        font-weight: normal;
+        font-size: 14px;
+    }
+{% endblock style %}
+
+
+{% block javascript %}
+{% endblock javascript %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <h4>Endereço: {{addr_detail.address}}</h4>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-3">
+        <div class="card text-center ">
+            <div class="card-header text-white bg-success">
+                Saldo Atual
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{addr_detail.final_balance | to_btc}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card text-center ">
+            <div class="card-header text-white bg-success">
+                Total Recebido
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{addr_detail.total_received | to_btc}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card text-center ">
+            <div class="card-header text-white bg-success">
+                Total Enviado
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{addr_detail.total_sent | to_btc}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card text-center ">
+            <div class="card-header text-white bg-success">
+                Total de Transações
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{addr_detail.final_n_tx}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-sm table-hover table-bordered text-center tx-table">
+            <thead class="thead-light">
+            <tr class="bg-success text-white">
+                <th scope="col" class="bg-success text-white">Hash</th>
+                <th scope="col" class="bg-success text-white">Confirmações</th>
+                <th scope="col" class="bg-success text-white">Status</th>
+                <th scope="col" class="bg-success text-white">Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% localtime on %}
+            {% for tx in addr_detail.txs %}
+            <tr>
+                <th class="tx-hash">{{tx.hash}}</th>
+                <td>{{tx.confirmations}}</td>
+                <td>{% if tx.confirmations >= 2 %}Done{% else %}Pending{% endif %}</td>
+                <td>{{tx.received | date:"d/M/y H:i"}}</td>
+            </tr>
+            {% endfor %}
+            {% endlocaltime %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

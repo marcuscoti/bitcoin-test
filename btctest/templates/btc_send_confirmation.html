@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load converter %}
+{% load render_form_field %}
+
+{% block head_title %}
+    {{block.super}} | Confirmação
+{% endblock head_title %}
+
+{% block style %}
+    .card-header{
+        font-size: 20px;
+    }
+{% endblock style %}
+
+
+{% block javascript %}
+{% endblock javascript %}
+
+
+{% block content %}
+<h3>Confirmação de Transação</h3>
+<div class="row">
+    <div class="col-12">
+        {% if not tx or tx.status == 'E' %}
+            <div class="card text-center">
+                <div class="card-header text-white bg-danger font-weight-bold text-left">
+                    Transação NÃO Confirmada
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">A transação não foi confirmada!</h5>
+                    <h5>Ocorreu um erro no processo de confirmação, reafaça a transação. Algumas causas abaixo:</h5>
+                    <ul class="text-left">
+                        <li>Transação já foi realizada</li>
+                        <li>Token de confirmação inválido</li>
+                        <li>Falta de saldo na origem</li>
+                        <li>Destino incorreto</li>
+                        <li>Falha na conexão da Internet</li>
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="card text-center">
+                <div class="card-header text-white bg-success text-left">
+                    Transação Confirmada com Sucesso
+                </div>
+                <div class="card-body text-left">
+                    <h5 class="card-title">A transação foi confirmada!</h5>
+                    <h5>Hash: {{tx.hash}}</h5>
+                    <h5>Destino: {{tx.dest_addrs}}</h5>
+                    <h5>Valor: {{tx.value|to_btc}}</h5>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

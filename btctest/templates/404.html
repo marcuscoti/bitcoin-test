@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Página Não Encontrada
+{% endblock head_title %}
+
+{% block style %}
+    .card-header{
+        font-size: 20px;
+    }
+{% endblock style %}
+
+{% block javascript %}
+{% endblock javascript %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card text-left">
+            <div class="card-header text-white bg-danger font-weight-bold text-left">
+                Página Não Encontrada
+            </div>
+            <div class="card-body text-left">
+                <h5>Algumas causas abaixo:</h5>
+                <ul class="text-left">
+                    <li>Transação já foi realizada ou excluída</li>
+                    <li>O endereço informado da blockchain é inválido</li>
+                    <li>Token inválido</li>
+                </ul>
+            </div>
+        </div>>
+    </div>
+</div>
+{% endblock content %}

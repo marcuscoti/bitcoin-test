@@ -1,0 +1,7 @@
+*.pyc
+*.sqlite3
+!rooms/migrations/__init__.py
+rooms/migrations/*
+accounts/migrations/*
+guests/migrations/*
+locations/migrations/*

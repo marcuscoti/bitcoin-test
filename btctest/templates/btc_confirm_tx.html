@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load converter %}
+{% load render_form_field %}
+
+{% block head_title %}
+    {{block.super}} | Enviar Bitcoins
+{% endblock head_title %}
+
+{% block style %}
+{% endblock style %}
+
+
+{% block javascript %}
+{% endblock javascript %}
+
+
+{% block content %}
+<h3>Confirmar Transação</h3>
+<div class="row">
+    <div class="col-6">
+        <form action="" method="post">
+            {% csrf_token %}
+            ID da Transação: {{txid}}
+            <br>
+            <br>
+            {% render_form_field form.token %}
+            <input class="btn btn-success" type="submit" value="Confirmar"/>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

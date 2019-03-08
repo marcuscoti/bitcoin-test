@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load converter %}
+{% load render_form_field %}
+
+{% block head_title %}
+    {{block.super}} | Procurar Endereço
+{% endblock head_title %}
+
+{% block style %}
+    td {
+        font-weight: normal;
+        font-size: 12px;
+    }
+{% endblock style %}
+
+
+{% block javascript %}
+{% endblock javascript %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-6">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% render_form_field form.address %}
+            <input class="btn btn-success" type="submit" value="Procurar"/>
+        </form>
+    </div>
+</div>
+<br>
+<h4>Últimos Envios Registrados</h4>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-sm table-hover table-bordered text-center tx-table">
+            <thead class="thead-light">
+            <tr class="bg-success text-white">
+                <th scope="col" class="bg-success text-white">ID</th>
+                <th scope="col" class="bg-success text-white">Hash</th>
+                <th scope="col" class="bg-success text-white">Destino</th>
+                <th scope="col" class="bg-success text-white">Valor</th>
+                <th scope="col" class="bg-success text-white">Email</th>
+                <th scope="col" class="bg-success text-white">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tx in tx_list %}
+            <tr>
+                <td>{{tx.tx_id}}</td>
+                <td>{{tx.hash}}</td>
+                <td>{{tx.dest_addrs}}</td>
+                <td>{{tx.value}}</td>
+                <td>{{tx.email}}</td>
+                <td>{{tx.get_status}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

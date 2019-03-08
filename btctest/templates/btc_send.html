@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load converter %}
+{% load render_form_field %}
+
+{% block head_title %}
+    {{block.super}} | Enviar Bitcoins
+{% endblock head_title %}
+
+{% block style %}
+{% endblock style %}
+
+
+{% block javascript %}
+{% endblock javascript %}
+
+
+{% block content %}
+<h4>Enviar BitCoins (testnet)</h4>
+<h5>Preencha o formmulário abaixo, após clicar em Enviar você receberá um e-mail com o token de confirmação</h5>
+<br>
+<div class="row">
+    <div class="col-12">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-5">
+                    {% render_form_field form.priv_key %}
+                    {% render_form_field form.dest_addr %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    {% render_form_field form.value %}
+                    {% render_form_field form.email %}
+                    {% render_form_field form.email2 %}
+                </div>
+            </div>
+            <input class="btn btn-success" type="submit" value="Enviar Transação"/>
+        </form>
+    </div>
+</div>
+<br>
+{% endblock content %}
